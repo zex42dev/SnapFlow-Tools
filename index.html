@@ -3,110 +3,197 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SharpFlow With Crazy Effects</title>
-<!-- Google Fonts for a futuristic look -->
+<title>SharpFlow - Black & White Crazy Effects</title>
+<!-- Google Fonts for a modern look -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
 <style>
-  /* Extra crazy background animation */
   body {
-    background: linear-gradient(270deg, #ff0066, #00ffff, #ffcc00, #ff0066);
-    background-size: 600% 600%;
-    animation: gradientShift 20s ease infinite;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
   }
 
-  @keyframes gradientShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+  /* Crazy animated lines background for effect */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-conic-gradient(
+      #fff 0deg 10deg,
+      transparent 10deg 20deg
+    );
+    animation: lines 20s linear infinite;
+    z-index: -1;
   }
 
-  /* Pulsing neon effect for headers and buttons */
-  .neon {
-    text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #00ffff;
-    animation: pulseNeon 2s infinite alternate;
+  @keyframes lines {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
   }
 
-  @keyframes pulseNeon {
-    0% {
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #00ffff;
-    }
-    100% {
-      text-shadow: 0 0 20px #fff, 0 0 40px #ff00ff, 0 0 60px #00ffff;
-    }
+  header {
+    text-align: center;
+    padding: 60px 20px;
+    border-bottom: 2px solid #fff;
+  }
+
+  h1 {
+    font-size: 3em;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #fff;
+    border-bottom: 2px solid #fff;
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+
+  /* Sharp, edgy buttons */
+  .btn {
+    border: 3px solid #fff;
+    border-radius: 0;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    background: transparent;
+    color: #fff;
+    transition: all 0.3s ease;
+    margin: 10px;
+    outline: none;
+    letter-spacing: 1px;
+  }
+
+  /* Crazy hover effects for buttons */
+  .btn:hover {
+    animation: crazyHover 0.8s forwards;
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: 0 0 20px #fff, inset 0 0 10px #fff;
+    border-color: #fff;
+  }
+
+  @keyframes crazyHover {
+    0% { filter: hue-rotate(0deg) skewX(0deg) skewY(0deg); }
+    25% { filter: hue-rotate(360deg) skewX(10deg) skewY(-10deg); }
+    50% { filter: hue-rotate(720deg) skewX(-10deg) skewY(10deg); }
+    75% { filter: hue-rotate(1080deg) skewX(0deg) skewY(0deg); }
+    100% { filter: hue-rotate(1440deg); transform: scale(1.2) rotate(-3deg); }
+  }
+
+  /* Sections styling */
+  section {
+    padding: 60px 20px;
+    border-top: 2px solid #fff;
+  }
+
+  h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #fff;
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+
+  /* Features grid */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .feature {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid #fff;
+    padding: 20px;
+    border-radius: 0;
+    transition: all 0.3s ease;
+  }
+
+  .feature:hover {
+    border-color: #fff;
+    box-shadow: 0 0 20px #fff inset, 0 0 40px #fff;
+    transform: skewX(2deg) skewY(2deg);
+  }
+
+  /* Contact section */
+  #contact a {
+    display: block;
+    margin: 10px 0;
+    color: #fff;
+    font-size: 1.2em;
+    text-decoration: none;
+    border-bottom: 1px dashed #fff;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+  }
+
+  #contact a:hover {
+    color: #fff;
+    font-weight: bold;
+    border-color: #fff;
+    transform: rotate(-2deg);
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #fff;
+    font-size: 0.9em;
+    letter-spacing: 1px;
   }
 </style>
 </head>
-<body class="text-white font-sans">
+<body>
 
-<!-- Crazy animated background layer -->
-<div class="fixed inset-0 z-[-1] animate-spin-slow" style="background: conic-gradient(from 0deg, #ff0066, #00ffff, #ffcc00, #ff0066);"></div>
-
-<!-- Header -->
-<header class="text-center py-20 px-4 bg-black bg-opacity-30 backdrop-blur-lg">
-  <h1 class="text-5xl md:text-7xl font-bold neon mb-4">SharpFlow <br/> ✨ Crazy Effects & More! ✨</h1>
-  <p class="text-xl md:text-2xl text-gray-200 mb-8">The ultimate creator tool for making your life easier, more fun, and totally wild!</p>
-  <a href="#features" class="bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white font-semibold px-8 py-3 rounded-full shadow-xl hover:scale-105 transform transition">Unleash the Power Now!</a>
+<header>
+  <h1 class="neon">SharpFlow<br>🔥 Crazy Buttons & Effects</h1>
+  <div>
+    <button class="btn">Unleash Creativity</button>
+  </div>
 </header>
 
-<!-- Features Section -->
-<section id="features" class="py-20 bg-black bg-opacity-20 backdrop-blur-lg px-4">
-  <h2 class="text-4xl md:text-5xl font-bold neon text-center mb-12">🚀 Features That Blow Minds 🚀</h2>
-  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-    <!-- Feature 1 -->
-    <div class="bg-white bg-opacity-10 p-6 rounded-xl shadow-lg hover:scale-105 transition duration-300 backdrop-blur-md border-4 border-dashed border-pink-500">
-      <h3 class="text-2xl font-bold mb-4 neon">🔥 Crazy Effects</h3>
-      <p class="text-gray-300">Unleash wild visual effects that make your content stand out. Distort, animate, and create chaos with ease!</p>
+<!-- Features with sharp edges and crazy hover -->
+<section id="features">
+  <h2>🚀 Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h3>🔥 Crazy Effects</h3>
+      <p>Wild visual effects that distort, shake, and explode your content into chaos.</p>
     </div>
-    <!-- Feature 2 -->
-    <div class="bg-white bg-opacity-10 p-6 rounded-xl shadow-lg hover:scale-105 transition duration-300 backdrop-blur-md border-4 border-dashed border-purple-500">
-      <h3 class="text-2xl font-bold mb-4 neon">🎨 Custom Touches</h3>
-      <p class="text-gray-300">Add your personal flair, tweak effects, and craft a uniquely crazy experience for your audience.</p>
+    <div class="feature">
+      <h3>🎨 Custom Touches</h3>
+      <p>Personalize everything with sharp, edgy controls that turn simple into insane.</p>
     </div>
-    <!-- Feature 3 -->
-    <div class="bg-white bg-opacity-10 p-6 rounded-xl shadow-lg hover:scale-105 transition duration-300 backdrop-blur-md border-4 border-dashed border-cyan-400">
-      <h3 class="text-2xl font-bold mb-4 neon">⚡ Instant Workflow</h3>
-      <p class="text-gray-300">Speed up your creation process with automation, integrations, and a sleek, customizable dashboard!</p>
+    <div class="feature">
+      <h3>⚡ Instant Workflow</h3>
+      <p>Speed up your creation with automation and lightning-fast tools.</p>
     </div>
   </div>
 </section>
 
 <!-- Call to Action -->
-<section class="py-20 bg-gradient-to-br from-purple-800 via-pink-600 to-blue-700 text-center px-4">
-  <h2 class="text-4xl md:text-5xl font-bold mb-4 neon">Join the Creator Revolution!</h2>
-  <p class="mb-8 text-lg text-gray-100">Supercharge your workflow with macros, integrations, AI add-ons, and more. Make your content unforgettable!</p>
-  <a href="#contact" class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-semibold px-8 py-3 rounded-full shadow-xl hover:scale-105 transform transition">Get Started Now</a>
+<section>
+  <h2>Join the Crazy Creator Club!</h2>
+  <a href="#contact" class="btn">Get Crazy Now</a>
 </section>
 
 <!-- Contact Section -->
-<section id="contact" class="py-20 bg-black bg-opacity-30 backdrop-blur-lg px-4 text-center">
-  <h2 class="text-4xl md:text-5xl font-bold neon mb-8">🤝 Want to Collaborate?</h2>
-  <div class="flex flex-col md:flex-row justify-center gap-8 max-w-3xl mx-auto text-gray-200 text-lg">
-    <a href="mailto:folyxz@gmail.com" class="hover:underline hover:text-pink-400 transition">Email: folyxz@gmail.com</a>
-    <a href="https://github.com/zex42dev" target="_blank" class="hover:underline hover:text-purple-400 transition">GitHub Profile</a>
-    <a href="https://discord.gg/E3SdzgT2Uu" target="_blank" class="hover:underline hover:text-cyan-400 transition">Join Discord</a>
-  </div>
+<section id="contact">
+  <h2>Contact & Collaborate</h2>
+  <a href="mailto:folyxz@gmail.com" target="_blank">Email: folyxz@gmail.com</a>
+  <a href="https://github.com/zex42dev" target="_blank">GitHub Profile</a>
+  <a href="https://discord.gg/E3SdzgT2Uu" target="_blank">Join Discord</a>
 </section>
 
 <!-- Footer -->
-<footer class="py-6 text-center text-gray-500 text-sm">
-  &copy; 2024 SharpFlow. Unleash your creativity with crazy effects! 🚀✨
+<footer>
+  &copy; 2024 SharpFlow. Make it crazy, make it sharp.
 </footer>
 
-<!-- Additional animations -->
-<script>
-  // Example: slow spin animation for background
-  document.querySelector('.animate-spin-slow').style.animation = 'spin 60s linear infinite';
-
-  // Spin keyframes
-  const styleSheet = document.styleSheets[0];
-  styleSheet.insertRule(`
-    @keyframes spin {
-      from {transform: rotate(0deg);}
-      to {transform: rotate(360deg);}
-    }
-  `, styleSheet.cssRules.length);
-</script>
 </body>
 </html>
