@@ -44,6 +44,35 @@
             z-index: 9999;
         }
         
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
         /* Navigation */
         nav {
             position: fixed;
@@ -54,12 +83,13 @@
             border-bottom: 1px solid var(--border);
             z-index: 1000;
             padding: 1.2rem 0;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         nav.scrolled {
             padding: 0.8rem 0;
             background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
         .nav-container {
@@ -79,22 +109,63 @@
             font-weight: 600;
             letter-spacing: -0.02em;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .logo:hover {
-            opacity: 0.7;
+            transform: scale(1.05) rotate(2deg);
         }
         
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--text);
-            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            position: relative;
+            overflow: hidden;
+            animation: logoGlow 3s ease-in-out infinite, logoFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.3), 0 0 90px rgba(255, 255, 255, 0.1);
+            }
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(5deg);
+            }
+        }
+        
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: logoShine 3s linear infinite;
+        }
+        
+        @keyframes logoShine {
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
         }
         
         .nav-links {
@@ -106,14 +177,30 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
             font-size: 0.95rem;
             position: relative;
         }
         
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--text);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
         .nav-links a:hover {
             color: var(--text);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
         .cta-button {
@@ -124,14 +211,69 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .cta-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 8K Badge Animation */
+        .badge-4k {
+            display: inline-block;
+            background: var(--text);
+            color: var(--bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-left: 0.5rem;
+            animation: pulse8k 2s ease-in-out infinite, rotate8k 10s linear infinite;
+            position: relative;
+        }
+        
+        @keyframes pulse8k {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+        }
+        
+        @keyframes rotate8k {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
         }
         
         /* Hero Section */
@@ -143,6 +285,27 @@
             text-align: center;
             padding: 8rem 2rem 4rem;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes moveGrid {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
         }
         
         .hero-content {
@@ -159,13 +322,13 @@
             font-size: 0.85rem;
             margin-bottom: 2rem;
             color: var(--text-secondary);
-            animation: fadeInDown 0.8s ease;
+            animation: fadeInDown 0.8s ease, float 3s ease-in-out infinite;
         }
         
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -182,10 +345,18 @@
             animation: fadeInUp 0.8s 0.2s both ease;
         }
         
+        .hero h1,
+        .hero h2 {
+            background: linear-gradient(to bottom, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -208,12 +379,22 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% auto;
-            animation: shimmer 3s linear infinite;
+            animation: shimmer 3s linear infinite, textGlow 2s ease-in-out infinite;
+            display: inline-block;
         }
         
         @keyframes shimmer {
             to {
                 background-position: 200% center;
+            }
+        }
+        
+        @keyframes textGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));
             }
         }
         
@@ -244,14 +425,34 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-primary:hover::before {
+            width: 400px;
+            height: 400px;
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.3);
         }
         
         .btn-secondary {
@@ -262,16 +463,35 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-secondary:hover::before {
+            left: 100%;
         }
         
         .btn-secondary:hover {
             background: var(--bg-tertiary);
             border-color: var(--text-tertiary);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.1);
         }
         
-        /* Section Styling */
+        /* Section Styling with scroll reveal */
         section {
             padding: 8rem 2rem;
             max-width: 1400px;
@@ -293,6 +513,13 @@
             margin-bottom: 1.5rem;
             color: var(--text-secondary);
             font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section-badge:hover {
+            transform: scale(1.1);
+            background: var(--text);
+            color: var(--bg);
         }
         
         .section-header h2 {
@@ -301,6 +528,10 @@
             margin-bottom: 1rem;
             letter-spacing: -0.03em;
             line-height: 1.2;
+            background: linear-gradient(to bottom, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .section-header p {
@@ -311,7 +542,7 @@
             line-height: 1.7;
         }
         
-        /* Features Grid */
+        /* Features Grid with stagger animation */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -323,20 +554,44 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2.5rem;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: top 0.6s;
+        }
+        
+        .feature-card:hover::before {
+            top: 100%;
         }
         
         .feature-card:hover {
             background: var(--bg-tertiary);
-            border-color: var(--text-tertiary);
-            transform: translateY(-4px);
+            border-color: var(--text);
+            transform: translateY(-15px) scale(1.02) rotate(1deg);
+            box-shadow: 0 25px 60px rgba(255, 255, 255, 0.1);
         }
         
         .feature-icon {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.3) rotate(360deg);
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
         }
         
         .feature-card h3 {
@@ -344,12 +599,22 @@
             margin-bottom: 1rem;
             font-weight: 600;
             letter-spacing: -0.02em;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover h3 {
+            transform: translateX(5px);
         }
         
         .feature-card p {
             color: var(--text-secondary);
             line-height: 1.7;
             font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover p {
+            color: var(--text);
         }
         
         .feature-tags {
@@ -366,9 +631,16 @@
             border-radius: 20px;
             font-size: 0.8rem;
             color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Comparison Table */
+        .tag:hover {
+            background: var(--text);
+            color: var(--bg);
+            transform: translateY(-2px) scale(1.1);
+        }
+        
+        /* Comparison Table with row animations */
         .comparison-table {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
@@ -380,11 +652,13 @@
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             border-bottom: 1px solid var(--border);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .comparison-row:hover {
             background: var(--bg-tertiary);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
         }
         
         .comparison-row:last-child {
@@ -398,6 +672,11 @@
             justify-content: center;
             text-align: center;
             font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .comparison-row:hover .comparison-cell {
+            transform: translateX(5px);
         }
         
         .comparison-header {
@@ -416,19 +695,46 @@
         .check {
             color: var(--text);
             font-size: 1.3rem;
+            animation: checkPop 0.6s ease;
+        }
+        
+        @keyframes checkPop {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         
         .cross {
             color: var(--text-tertiary);
             font-size: 1.3rem;
+            animation: crossShake 0.6s ease;
         }
         
-        /* Workflow Cards */
+        @keyframes crossShake {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(10deg);
+            }
+        }
+        
+        /* Workflow Cards with 3D effect */
         .workflow-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
+            perspective: 1000px;
         }
         
         .workflow-card {
@@ -436,13 +742,15 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2.5rem;
-            transition: all 0.3s;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
         }
         
         .workflow-card:hover {
             background: var(--bg-tertiary);
-            border-color: var(--text-tertiary);
-            transform: translateY(-4px);
+            border-color: var(--text);
+            transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 30px 70px rgba(255, 255, 255, 0.15);
         }
         
         .workflow-card h3 {
@@ -450,6 +758,11 @@
             margin-bottom: 1.5rem;
             font-weight: 600;
             letter-spacing: -0.02em;
+            transition: all 0.3s;
+        }
+        
+        .workflow-card:hover h3 {
+            transform: translateZ(20px);
         }
         
         .workflow-steps {
@@ -464,7 +777,7 @@
             align-items: center;
             gap: 0.8rem;
             font-size: 0.95rem;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .workflow-steps li:last-child {
@@ -473,9 +786,11 @@
         
         .workflow-steps li:hover {
             color: var(--text);
+            transform: translateX(15px);
+            padding-left: 10px;
         }
         
-        /* Pricing Grid */
+        /* Pricing with animated glow */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -488,19 +803,30 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 3rem;
-            transition: all 0.3s;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
         
         .pricing-card:hover {
             background: var(--bg-tertiary);
-            border-color: var(--text-tertiary);
-            transform: translateY(-4px);
+            border-color: var(--text);
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 80px rgba(255, 255, 255, 0.2);
         }
         
         .pricing-card.popular {
-            border: 1px solid var(--text);
-            transform: scale(1.02);
+            border: 2px solid var(--text);
+            transform: scale(1.05);
+            animation: popularGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes popularGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 255, 255, 0.2);
+            }
         }
         
         .popular-badge {
@@ -513,6 +839,16 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgeBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
         }
         
         .pricing-card h3 {
@@ -526,17 +862,16 @@
             font-weight: 700;
             margin: 1.5rem 0;
             letter-spacing: -0.03em;
+            background: linear-gradient(to bottom, #ffffff 0%, #999999 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .price-period {
             font-size: 1rem;
             color: var(--text-secondary);
             font-weight: 400;
-        }
-        
-        .pricing-card > p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
         }
         
         .pricing-features {
@@ -552,6 +887,12 @@
             border-bottom: 1px solid var(--border);
             color: var(--text-secondary);
             font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .pricing-features li:hover {
+            color: var(--text);
+            transform: translateX(10px);
         }
         
         .pricing-features li:last-child {
@@ -572,18 +913,24 @@
             border-radius: 12px;
             padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .mobile-feature:hover {
             background: var(--bg-tertiary);
-            border-color: var(--text-tertiary);
-            transform: translateY(-4px);
+            border-color: var(--text);
+            transform: translateY(-15px) rotate(-2deg);
+            box-shadow: 0 25px 60px rgba(255, 255, 255, 0.15);
         }
         
         .mobile-icon {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mobile-feature:hover .mobile-icon {
+            transform: scale(1.4) rotate(360deg);
         }
         
         .mobile-feature h3 {
@@ -598,18 +945,42 @@
             line-height: 1.6;
         }
         
-        /* CTA Section */
+        /* CTA Section with animated background */
         .cta-section {
             padding: 10rem 2rem;
             text-align: center;
             background: var(--bg-secondary);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: moveCtaGrid 30s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes moveCtaGrid {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(40px, 40px) rotate(360deg);
+            }
         }
         
         .cta-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         
         .cta-content h2 {
@@ -618,6 +989,10 @@
             font-weight: 700;
             letter-spacing: -0.03em;
             line-height: 1.2;
+            background: linear-gradient(to bottom, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .cta-content p {
@@ -657,6 +1032,11 @@
             gap: 0.5rem;
             font-size: 1.2rem;
             font-weight: 600;
+            transition: transform 0.3s;
+        }
+        
+        .footer-logo:hover {
+            transform: scale(1.1) rotate(-5deg);
         }
         
         .footer-links {
@@ -668,12 +1048,13 @@
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.95rem;
         }
         
         .footer-links a:hover {
             color: var(--text);
+            transform: translateY(-3px);
         }
         
         .copyright {
@@ -729,16 +1110,49 @@
             }
         }
         
-        /* Scroll animations */
+        /* Scroll reveal animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
         }
     </style>
 </head>
@@ -748,7 +1162,7 @@
         <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">⚡</div>
-                <span>SnapFlow</span>
+                <span>SnapFlow<span class="badge-4k">8K</span></span>
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -766,7 +1180,7 @@
             <div class="beta-badge">Beta · One workspace. Endless integrations.</div>
             <h1>Workflow messy?</h1>
             <h2>Just <span class="gradient-text">SnapFlow</span> it.</h2>
-            <p>SnapFlow brings tasks, streams, conversations, and tools into one unified workspace. Connect the services you already use and manage everything without friction.</p>
+            <p>SnapFlow brings streaming, automation, and content creation into one unified platform. Go live everywhere, automate your workflow, and make content faster than ever.</p>
             <div class="hero-buttons">
                 <a href="#" class="btn-primary">Get Started Free</a>
                 <a href="#features" class="btn-secondary">See Features</a>
@@ -778,68 +1192,68 @@
     <section class="features fade-in" id="features">
         <div class="section-header">
             <div class="section-badge">Features</div>
-            <h2>Everything you need to streamline your workflow</h2>
-            <p>Powerful features designed to help teams collaborate seamlessly and manage projects efficiently.</p>
+            <h2>Everything you need to streamline your content</h2>
+            <p>Powerful features designed to help creators stream seamlessly and build their audience effortlessly.</p>
         </div>
         
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card scale-in">
                 <div class="feature-icon">⚡</div>
                 <h3>Command & Control</h3>
-                <p>Master your entire ecosystem from a single, high-performance command center. Trigger multiple actions with one click.</p>
+                <p>Go live on 5+ platforms with one click. Start OBS, Twitch, YouTube, TikTok, and Discord simultaneously. No more manual setup.</p>
                 <div class="feature-tags">
-                    <span class="tag">Automation</span>
-                    <span class="tag">One-Click</span>
+                    <span class="tag">One-Click Live</span>
+                    <span class="tag">Multi-Platform</span>
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">🔗</div>
-                <h3>Context-Aware Sync</h3>
-                <p>Your docs, repos, and chats live in perfect harmony. No tab switching ever. Stream to multiple platforms simultaneously.</p>
+            <div class="feature-card scale-in" style="transition-delay: 0.1s;">
+                <div class="feature-icon">🎥</div>
+                <h3>8K Recording & Upload</h3>
+                <p>Capture ultra-crisp 8K footage and upload instantly to all platforms. Auto-formatting included for each platform's specs.</p>
                 <div class="feature-tags">
-                    <span class="tag">Multi-Stream</span>
-                    <span class="tag">Unified</span>
+                    <span class="tag">8K Quality</span>
+                    <span class="tag">Instant Upload</span>
                 </div>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card scale-in" style="transition-delay: 0.2s;">
                 <div class="feature-icon">🤖</div>
-                <h3>Unified Intelligence</h3>
-                <p>Leverage built-in AI that knows your entire workspace context from top to bottom. Auto-edits, summaries, and more.</p>
+                <h3>AI-Powered Tools</h3>
+                <p>AI summarizes streams, generates viral titles and hashtags, auto-edits highlights, and suggests optimal posting times.</p>
                 <div class="feature-tags">
-                    <span class="tag">AI-Powered</span>
-                    <span class="tag">Smart</span>
+                    <span class="tag">Smart AI</span>
+                    <span class="tag">Auto-Optimize</span>
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">📋</div>
-                <h3>Task Management</h3>
-                <p>Organize your workflow with powerful task boards. Real-time updates keep everyone in sync across all platforms.</p>
+            <div class="feature-card scale-in" style="transition-delay: 0.3s;">
+                <div class="feature-icon">📊</div>
+                <h3>Unified Analytics</h3>
+                <p>View all your stream stats, engagement, and growth metrics in one dashboard. Know what works across all platforms.</p>
                 <div class="feature-tags">
-                    <span class="tag">Organized</span>
-                    <span class="tag">Real-time</span>
+                    <span class="tag">Cross-Platform</span>
+                    <span class="tag">Real-Time</span>
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">👥</div>
-                <h3>Team Collaboration</h3>
-                <p>Work together seamlessly with live collaboration features. Share screens, files, and ideas instantly.</p>
+            <div class="feature-card scale-in" style="transition-delay: 0.4s;">
+                <div class="feature-icon">✂️</div>
+                <h3>Auto-Clip Highlights</h3>
+                <p>AI detects your best moments and creates clips automatically. Perfect for TikTok, Shorts, and Reels.</p>
                 <div class="feature-tags">
-                    <span class="tag">Live Collab</span>
-                    <span class="tag">Together</span>
+                    <span class="tag">Auto-Edit</span>
+                    <span class="tag">Viral-Ready</span>
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3>Integrated Chat</h3>
-                <p>Communicate instantly without leaving your workspace. Context-aware conversations that stay organized.</p>
+            <div class="feature-card scale-in" style="transition-delay: 0.5s;">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Streaming</h3>
+                <p>Stream in 8K from your phone with one tap. Upload clips, manage streams, and engage with chat on the go.</p>
                 <div class="feature-tags">
-                    <span class="tag">Connected</span>
-                    <span class="tag">Instant</span>
+                    <span class="tag">iOS & Android</span>
+                    <span class="tag">On-The-Go</span>
                 </div>
             </div>
         </div>
@@ -859,35 +1273,40 @@
                 <div class="comparison-cell">The Old Way</div>
                 <div class="comparison-cell">With SnapFlow</div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Context Switching</div>
-                <div class="comparison-cell">20+ browser tabs open <span class="cross">✗</span></div>
-                <div class="comparison-cell">One unified dashboard <span class="check">✓</span></div>
+            <div class="comparison-row slide-in-left">
+                <div class="comparison-cell">Going Live</div>
+                <div class="comparison-cell">Manual setup on 5+ apps <span class="cross">✗</span></div>
+                <div class="comparison-cell">One-click go live everywhere <span class="check">✓</span></div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Team Updates</div>
-                <div class="comparison-cell">Weekly manual sync meetings <span class="cross">✗</span></div>
-                <div class="comparison-cell">Real-time auto-updates <span class="check">✓</span></div>
+            <div class="comparison-row slide-in-left" style="transition-delay: 0.1s;">
+                <div class="comparison-cell">Multi-Platform Streaming</div>
+                <div class="comparison-cell">Complex RTMP configurations <span class="cross">✗</span></div>
+                <div class="comparison-cell">Native multi-stream built-in <span class="check">✓</span></div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Communication</div>
-                <div class="comparison-cell">Scattered emails & Slack threads <span class="cross">✗</span></div>
-                <div class="comparison-cell">Context-aware integrated chat <span class="check">✓</span></div>
+            <div class="comparison-row slide-in-left" style="transition-delay: 0.2s;">
+                <div class="comparison-cell">Content Uploads</div>
+                <div class="comparison-cell">Upload to each platform manually <span class="cross">✗</span></div>
+                <div class="comparison-cell">Instant cross-platform upload <span class="check">✓</span></div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Tool Integration</div>
-                <div class="comparison-cell">Manual data copy-pasting <span class="cross">✗</span></div>
-                <div class="comparison-cell">Native automated connectors <span class="check">✓</span></div>
+            <div class="comparison-row slide-in-left" style="transition-delay: 0.3s;">
+                <div class="comparison-cell">Highlight Clipping</div>
+                <div class="comparison-cell">Hours editing in software <span class="cross">✗</span></div>
+                <div class="comparison-cell">AI auto-clips best moments <span class="check">✓</span></div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Project Clarity</div>
-                <div class="comparison-cell">Digging through scattered Notion docs <span class="cross">✗</span></div>
-                <div class="comparison-cell">Unified bi-directional Notion sync <span class="check">✓</span></div>
+            <div class="comparison-row slide-in-left" style="transition-delay: 0.4s;">
+                <div class="comparison-cell">Titles & Hashtags</div>
+                <div class="comparison-cell">Guessing what works <span class="cross">✗</span></div>
+                <div class="comparison-cell">AI-generated viral content <span class="check">✓</span></div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Workflow Flow</div>
-                <div class="comparison-cell">Constant friction & interruptions <span class="cross">✗</span></div>
-                <div class="comparison-cell">Deep work mode enabled <span class="check">✓</span></div>
+            <div class="comparison-row slide-in-left" style="transition-delay: 0.5s;">
+                <div class="comparison-cell">Analytics Dashboard</div>
+                <div class="comparison-cell">Scattered across platforms <span class="cross">✗</span></div>
+                <div class="comparison-cell">Unified real-time dashboard <span class="check">✓</span></div>
+            </div>
+            <div class="comparison-row slide-in-left" style="transition-delay: 0.6s;">
+                <div class="comparison-cell">Stream Quality</div>
+                <div class="comparison-cell">1080p max on most setups <span class="cross">✗</span></div>
+                <div class="comparison-cell">8K streaming & recording <span class="check">✓</span></div>
             </div>
         </div>
     </section>
@@ -900,33 +1319,33 @@
         </div>
         
         <div class="workflow-cards">
-            <div class="workflow-card">
+            <div class="workflow-card scale-in">
                 <h3>01 · Claim Your Workspace</h3>
                 <ul class="workflow-steps">
                     <li>📝 Sign up in 30 seconds</li>
-                    <li>🆓 Your first command center is free</li>
-                    <li>⚡ Start with instant access</li>
-                    <li>🎯 No credit card required</li>
+                    <li>🆓 Start free forever</li>
+                    <li>⚡ Instant dashboard access</li>
+                    <li>🎯 No credit card needed</li>
                 </ul>
             </div>
             
-            <div class="workflow-card">
-                <h3>02 · Sync Notion & Repos</h3>
+            <div class="workflow-card scale-in" style="transition-delay: 0.2s;">
+                <h3>02 · Connect Platforms</h3>
                 <ul class="workflow-steps">
-                    <li>🔗 Connect your docs and code</li>
-                    <li>📊 Index everything instantly</li>
-                    <li>🔍 Search across all platforms</li>
-                    <li>✨ Smart context awareness</li>
+                    <li>🔗 Link Twitch, YouTube, TikTok</li>
+                    <li>📊 Sync all your accounts</li>
+                    <li>🔍 Import existing content</li>
+                    <li>✨ Ready to stream everywhere</li>
                 </ul>
             </div>
             
-            <div class="workflow-card">
-                <h3>03 · Automate Chaos</h3>
+            <div class="workflow-card scale-in" style="transition-delay: 0.4s;">
+                <h3>03 · Automate & Go Live</h3>
                 <ul class="workflow-steps">
-                    <li>🤖 Deploy AI agents</li>
-                    <li>🔄 Auto-updates everywhere</li>
-                    <li>⚙️ Custom workflows</li>
-                    <li>📈 Scale effortlessly</li>
+                    <li>🤖 Set up your macros</li>
+                    <li>🎬 One-click go live</li>
+                    <li>⚙️ AI handles the rest</li>
+                    <li>📈 Grow 10x faster</li>
                 </ul>
             </div>
         </div>
@@ -936,33 +1355,33 @@
     <section class="mobile-showcase fade-in">
         <div class="section-header">
             <div class="section-badge">Mobile</div>
-            <h2>Your workspace, everywhere</h2>
-            <p>Full power on any device, any time.</p>
+            <h2>Your studio, in your pocket</h2>
+            <p>Full streaming power on any device, anywhere.</p>
         </div>
         
         <div class="mobile-features">
-            <div class="mobile-feature">
-                <div class="mobile-icon">📱</div>
-                <h3>Mobile First</h3>
-                <p>Native apps for iOS and Android with offline support.</p>
+            <div class="mobile-feature scale-in">
+                <div class="mobile-icon">🎬</div>
+                <h3>Mobile 8K Streaming</h3>
+                <p>Go live in 8K quality directly from your phone with one tap.</p>
             </div>
             
-            <div class="mobile-feature">
-                <div class="mobile-icon">🔔</div>
-                <h3>Smart Alerts</h3>
-                <p>Get notified about what matters, when it matters.</p>
+            <div class="mobile-feature scale-in" style="transition-delay: 0.1s;">
+                <div class="mobile-icon">📤</div>
+                <h3>Instant Uploads</h3>
+                <p>Upload clips to all platforms instantly with AI-generated captions.</p>
             </div>
             
-            <div class="mobile-feature">
-                <div class="mobile-icon">⚡</div>
-                <h3>Quick Actions</h3>
-                <p>One-tap macros to get things done instantly.</p>
+            <div class="mobile-feature scale-in" style="transition-delay: 0.2s;">
+                <div class="mobile-icon">💬</div>
+                <h3>Chat Management</h3>
+                <p>Manage chat across all platforms from one unified inbox.</p>
             </div>
             
-            <div class="mobile-feature">
-                <div class="mobile-icon">🔒</div>
-                <h3>Secure Sync</h3>
-                <p>End-to-end encryption keeps your data safe.</p>
+            <div class="mobile-feature scale-in" style="transition-delay: 0.3s;">
+                <div class="mobile-icon">📊</div>
+                <h3>Live Analytics</h3>
+                <p>Monitor viewer counts, engagement, and revenue in real-time.</p>
             </div>
         </div>
     </section>
@@ -971,71 +1390,74 @@
     <section class="pricing fade-in" id="pricing">
         <div class="section-header">
             <div class="section-badge">Pricing</div>
-            <h2>Pricing That Doesn't Suck</h2>
-            <p>Start free. Upgrade when your team needs it.</p>
+            <h2>Plans Built For Creators</h2>
+            <p>Start free. Upgrade when you're ready to scale.</p>
         </div>
         
         <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>Personal</h3>
+            <div class="pricing-card scale-in">
+                <h3>Starter</h3>
                 <div class="price">$0<span class="price-period">/month</span></div>
-                <p>For solo creators keeping things organized.</p>
+                <p>For solo creators getting started.</p>
                 <ul class="pricing-features">
-                    <li>✓ Up to 3 team members</li>
-                    <li>✓ 5 code repo imports</li>
-                    <li>✓ Basic Notion sync</li>
+                    <li>✓ Stream to 2 platforms</li>
+                    <li>✓ 1080p recording</li>
+                    <li>✓ Basic macros (5)</li>
+                    <li>✓ 10GB cloud storage</li>
                     <li>✓ Community support</li>
-                    <li>✓ Public roadmap</li>
                 </ul>
-                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Subscribe</a>
+                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Start Free</a>
             </div>
             
-            <div class="pricing-card popular">
+            <div class="pricing-card popular scale-in" style="transition-delay: 0.2s;">
                 <div class="popular-badge">Most Popular</div>
-                <h3>Team</h3>
-                <div class="price">$49<span class="price-period">/month</span></div>
-                <p>The perfect command center for your squad.</p>
+                <h3>Pro</h3>
+                <div class="price">$29<span class="price-period">/month</span></div>
+                <p>The complete creator arsenal.</p>
                 <ul class="pricing-features">
-                    <li>✓ Up to 20 team members</li>
-                    <li>✓ 50 code repo imports</li>
-                    <li>✓ Full Notion Docs sync</li>
-                    <li>✓ Advanced task boards</li>
-                    <li>✓ Slack & Discord connect</li>
+                    <li>✓ Unlimited platforms</li>
+                    <li>✓ 8K recording & uploads</li>
+                    <li>✓ Unlimited macros</li>
+                    <li>✓ AI-powered tools</li>
+                    <li>✓ 100GB cloud storage</li>
+                    <li>✓ Priority support</li>
+                    <li>✓ Mobile app access</li>
                 </ul>
-                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Subscribe</a>
+                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Go Pro</a>
             </div>
             
-            <div class="pricing-card">
+            <div class="pricing-card scale-in" style="transition-delay: 0.4s;">
                 <h3>Enterprise</h3>
-                <div class="price">$499<span class="price-period">/month</span></div>
-                <p>Maximum power for world-class organizations.</p>
+                <div class="price">$99<span class="price-period">/month</span></div>
+                <p>For agencies and power creators.</p>
                 <ul class="pricing-features">
-                    <li>✓ Unlimited everything</li>
-                    <li>✓ Dedicated workspace mgr</li>
-                    <li>✓ Custom Notion connector</li>
-                    <li>✓ SSO / SAML / SCIM</li>
-                    <li>✓ White-glove onboarding</li>
-                    <li>✓ SLA & Legal support</li>
+                    <li>✓ Everything in Pro</li>
+                    <li>✓ Team collaboration (10 users)</li>
+                    <li>✓ Advanced analytics</li>
+                    <li>✓ Custom integrations</li>
+                    <li>✓ Unlimited storage</li>
+                    <li>✓ White-label options</li>
+                    <li>✓ Dedicated support</li>
                 </ul>
-                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Subscribe</a>
+                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Contact Sales</a>
             </div>
         </div>
     </section>
     
     <!-- CTA Section -->
-    <section class="cta-section" id="cta">
+    <section class="cta-section fade-in" id="cta">
         <div class="cta-content">
-            <h2>Set it up once. Never think about it again.</h2>
-            <p>Your teams built something worth protecting. So did you.</p>
+            <h2>The dashboard that does it all.</h2>
+            <p>Join thousands of creators who've streamlined their workflow with SnapFlow.</p>
             <div class="cta-buttons">
                 <a href="#" class="btn-primary">Get Started Free</a>
-                <a href="#" class="btn-secondary">Join Discord</a>
+                <a href="https://discord.gg/kmGHtfYGUm" target="_blank" class="btn-secondary">Join Discord</a>
             </div>
         </div>
     </section>
     
     <!-- Footer -->
-    <footer>
+    <footer class="fade-in">
         <div class="footer-content">
             <div class="footer-logo">
                 <div class="logo-icon" style="width: 28px; height: 28px; font-size: 1.1rem;">⚡</div>
@@ -1045,27 +1467,47 @@
                 <li><a href="#">Features</a></li>
                 <li><a href="#">Pricing</a></li>
                 <li><a href="#">Documentation</a></li>
-                <li><a href="#">Discord</a></li>
+                <li><a href="https://discord.gg/kmGHtfYGUm" target="_blank">Discord</a></li>
                 <li><a href="#">GitHub</a></li>
             </ul>
         </div>
         <div class="copyright">
-            © 2026 SnapFlow. All rights reserved.
+            © 2026 SnapFlow. All rights reserved. Built for creators, by creators.
         </div>
     </footer>
     
     <script>
+        // Create floating particles
+        function createParticles() {
+            for(let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                document.body.appendChild(particle);
+            }
+        }
+        createParticles();
+        
         // Navbar scroll effect
+        let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+            
+            lastScroll = currentScroll;
         });
         
-        // Scroll animations
+        // Advanced scroll reveal with stagger
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -1075,11 +1517,20 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    
+                    // Stagger children animations
+                    const children = entry.target.querySelectorAll('.scale-in, .slide-in-left, .slide-in-right');
+                    children.forEach((child, index) => {
+                        setTimeout(() => {
+                            child.classList.add('visible');
+                        }, index * 100);
+                    });
                 }
             });
         }, observerOptions);
         
-        document.querySelectorAll('.fade-in').forEach(el => {
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .scale-in, .slide-in-left, .slide-in-right').forEach(el => {
             observer.observe(el);
         });
         
@@ -1095,6 +1546,43 @@
                     });
                 }
             });
+        });
+        
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero, .cta-section');
+            
+            parallaxElements.forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Add hover tilt effect to cards
+        document.querySelectorAll('.feature-card, .workflow-card, .pricing-card, .mobile-feature').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+        
+        // Add random delays to particle animations
+        document.querySelectorAll('.particle').forEach((particle, index) => {
+            particle.style.animationDelay = (Math.random() * 10) + 's';
         });
     </script>
 </body>
