@@ -1,115 +1,1101 @@
-// pages/index.js
-import { motion } from "framer-motion";
-
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 text-white flex flex-col items-center justify-center overflow-hidden">
-      
-      {/* Hero Section */}
-      <motion.h1
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1.2, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="text-8xl font-extrabold mb-6 text-center drop-shadow-lg"
-      >
-        🚀 SNAPFLOW / SNAPTV
-      </motion.h1>
-
-      <motion.p
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 1 }}
-        className="text-2xl text-center max-w-4xl font-semibold"
-      >
-        GO LIVE IN 4K, UPLOAD EVERYWHERE, AND AUTOMATE YOUR STREAMING WORKFLOWS — ALL FROM ONE APP, ONE BUTTON.
-      </motion.p>
-
-      {/* CTA Buttons */}
-      <motion.div
-        initial={{ y: 200, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="mt-10 flex gap-8"
-      >
-        <a href="#" className="px-10 py-5 bg-black rounded-xl hover:scale-125 transition-transform font-bold text-xl shadow-lg">
-          🎬 GO LIVE NOW
-        </a>
-        <a href="https://vercel.com/new" className="px-10 py-5 bg-white text-black rounded-xl hover:scale-125 transition-transform font-bold text-xl shadow-lg">
-          🌍 DEPLOY FREE
-        </a>
-      </motion.div>
-
-      {/* Features Grid */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-20 max-w-6xl"
-      >
-        {[
-          "⚡ MACROS HUB",
-          "🔗 INTEGRATIONS",
-          "🤖 AI ADD-ONS",
-          "🎥 4K RECORDING & UPLOADS",
-          "🎨 CUSTOMIZABLE DASHBOARD",
-          "📱 MOBILE APP",
-        ].map((feature, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.2, rotate: 5 }}
-            className="bg-white text-black rounded-2xl p-10 shadow-2xl font-bold text-center text-2xl"
-          >
-            {feature}
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Workflow Demo Animation */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="mt-24 text-center"
-      >
-        <h2 className="text-4xl font-extrabold mb-6">🎬 GO LIVE MACRO DEMO</h2>
-        <motion.ul
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.5 },
-            },
-          }}
-          className="space-y-4 text-2xl font-semibold"
-        >
-          {[
-            "📡 Start OBS",
-            "🎮 Launch Twitch",
-            "📲 Notify Discord",
-            "🔥 Post 'Live Now' on TikTok",
-            "🎥 Upload teaser to YouTube Shorts",
-          ].map((step, i) => (
-            <motion.li
-              key={i}
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: { opacity: 1, y: 0 },
-              }}
-            >
-              {step}
-            </motion.li>
-          ))}
-        </motion.ul>
-      </motion.div>
-
-      {/* Footer */}
-      <footer className="mt-32 text-center text-lg font-bold opacity-80">
-        🌐 Built with Next.js + Tailwind + Framer Motion  
-        <br />
-        © 2026 SnapFlow / SnapTV
-      </footer>
-    </div>
-  );
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapFlow | The Ultimate Streaming + Productivity Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            --border: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --text-tertiary: #666666;
+            --accent: #ffffff;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            padding: 0.8rem 0;
+            background: rgba(0, 0, 0, 0.95);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .logo:hover {
+            opacity: 0.7;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--text);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text);
+        }
+        
+        .cta-button {
+            background: var(--text);
+            color: var(--bg);
+            padding: 0.65rem 1.3rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 950px;
+            z-index: 1;
+        }
+        
+        .beta-badge {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            animation: fadeInUp 0.8s 0.2s both ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h2 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            animation: fadeInUp 0.8s 0.3s both ease;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #ffffff 0%, #888888 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s 0.4s both ease;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s 0.5s both ease;
+        }
+        
+        .btn-primary {
+            background: var(--text);
+            color: var(--bg);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-tertiary);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-tertiary);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .feature-tags {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .tag {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .comparison-row:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-cell {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-header {
+            background: var(--text);
+            color: var(--bg);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .comparison-cell:first-child {
+            justify-content: flex-start;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .check {
+            color: var(--text);
+            font-size: 1.3rem;
+        }
+        
+        .cross {
+            color: var(--text-tertiary);
+            font-size: 1.3rem;
+        }
+        
+        /* Workflow Cards */
+        .workflow-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .workflow-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+        
+        .workflow-card:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-tertiary);
+            transform: translateY(-4px);
+        }
+        
+        .workflow-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .workflow-steps {
+            list-style: none;
+        }
+        
+        .workflow-steps li {
+            padding: 0.9rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .workflow-steps li:last-child {
+            border-bottom: none;
+        }
+        
+        .workflow-steps li:hover {
+            color: var(--text);
+        }
+        
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .pricing-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-tertiary);
+            transform: translateY(-4px);
+        }
+        
+        .pricing-card.popular {
+            border: 1px solid var(--text);
+            transform: scale(1.02);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--text);
+            color: var(--bg);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            letter-spacing: -0.03em;
+        }
+        
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .pricing-card > p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .pricing-features li {
+            padding: 0.9rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Mobile Features */
+        .mobile-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .mobile-feature {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .mobile-feature:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-tertiary);
+            transform: translateY(-4px);
+        }
+        
+        .mobile-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mobile-feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .mobile-feature p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 2rem;
+            text-align: center;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 2rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--text);
+        }
+        
+        .copyright {
+            color: var(--text-tertiary);
+            margin-top: 3rem;
+            text-align: center;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid,
+            .workflow-cards,
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .mobile-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1,
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .section-header h2,
+            .cta-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid,
+            .workflow-cards,
+            .pricing-grid,
+            .mobile-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-row {
+                grid-template-columns: 2fr 1fr 1fr;
+                font-size: 0.85rem;
+            }
+            
+            .comparison-cell {
+                padding: 1rem;
+            }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>SnapFlow</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#workflow">Workflows</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <a href="#cta" class="cta-button">Get Started</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="beta-badge">Beta · One workspace. Endless integrations.</div>
+            <h1>Workflow messy?</h1>
+            <h2>Just <span class="gradient-text">SnapFlow</span> it.</h2>
+            <p>SnapFlow brings tasks, streams, conversations, and tools into one unified workspace. Connect the services you already use and manage everything without friction.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary">Get Started Free</a>
+                <a href="#features" class="btn-secondary">See Features</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features fade-in" id="features">
+        <div class="section-header">
+            <div class="section-badge">Features</div>
+            <h2>Everything you need to streamline your workflow</h2>
+            <p>Powerful features designed to help teams collaborate seamlessly and manage projects efficiently.</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Command & Control</h3>
+                <p>Master your entire ecosystem from a single, high-performance command center. Trigger multiple actions with one click.</p>
+                <div class="feature-tags">
+                    <span class="tag">Automation</span>
+                    <span class="tag">One-Click</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Context-Aware Sync</h3>
+                <p>Your docs, repos, and chats live in perfect harmony. No tab switching ever. Stream to multiple platforms simultaneously.</p>
+                <div class="feature-tags">
+                    <span class="tag">Multi-Stream</span>
+                    <span class="tag">Unified</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Unified Intelligence</h3>
+                <p>Leverage built-in AI that knows your entire workspace context from top to bottom. Auto-edits, summaries, and more.</p>
+                <div class="feature-tags">
+                    <span class="tag">AI-Powered</span>
+                    <span class="tag">Smart</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Task Management</h3>
+                <p>Organize your workflow with powerful task boards. Real-time updates keep everyone in sync across all platforms.</p>
+                <div class="feature-tags">
+                    <span class="tag">Organized</span>
+                    <span class="tag">Real-time</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Team Collaboration</h3>
+                <p>Work together seamlessly with live collaboration features. Share screens, files, and ideas instantly.</p>
+                <div class="feature-tags">
+                    <span class="tag">Live Collab</span>
+                    <span class="tag">Together</span>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Integrated Chat</h3>
+                <p>Communicate instantly without leaving your workspace. Context-aware conversations that stay organized.</p>
+                <div class="feature-tags">
+                    <span class="tag">Connected</span>
+                    <span class="tag">Instant</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Comparison Table -->
+    <section class="comparison fade-in">
+        <div class="section-header">
+            <div class="section-badge">Comparison</div>
+            <h2>Same Chaos, Different Outcome</h2>
+            <p>The only difference is whether you had SnapFlow running.</p>
+        </div>
+        
+        <div class="comparison-table">
+            <div class="comparison-row comparison-header">
+                <div class="comparison-cell">Scenario</div>
+                <div class="comparison-cell">The Old Way</div>
+                <div class="comparison-cell">With SnapFlow</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Context Switching</div>
+                <div class="comparison-cell">20+ browser tabs open <span class="cross">✗</span></div>
+                <div class="comparison-cell">One unified dashboard <span class="check">✓</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Team Updates</div>
+                <div class="comparison-cell">Weekly manual sync meetings <span class="cross">✗</span></div>
+                <div class="comparison-cell">Real-time auto-updates <span class="check">✓</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Communication</div>
+                <div class="comparison-cell">Scattered emails & Slack threads <span class="cross">✗</span></div>
+                <div class="comparison-cell">Context-aware integrated chat <span class="check">✓</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Tool Integration</div>
+                <div class="comparison-cell">Manual data copy-pasting <span class="cross">✗</span></div>
+                <div class="comparison-cell">Native automated connectors <span class="check">✓</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Project Clarity</div>
+                <div class="comparison-cell">Digging through scattered Notion docs <span class="cross">✗</span></div>
+                <div class="comparison-cell">Unified bi-directional Notion sync <span class="check">✓</span></div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Workflow Flow</div>
+                <div class="comparison-cell">Constant friction & interruptions <span class="cross">✗</span></div>
+                <div class="comparison-cell">Deep work mode enabled <span class="check">✓</span></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Workflow Demos -->
+    <section class="workflow fade-in" id="workflow">
+        <div class="section-header">
+            <div class="section-badge">How to Get Started</div>
+            <h2>Four steps. Five minutes. Streamlined forever.</h2>
+        </div>
+        
+        <div class="workflow-cards">
+            <div class="workflow-card">
+                <h3>01 · Claim Your Workspace</h3>
+                <ul class="workflow-steps">
+                    <li>📝 Sign up in 30 seconds</li>
+                    <li>🆓 Your first command center is free</li>
+                    <li>⚡ Start with instant access</li>
+                    <li>🎯 No credit card required</li>
+                </ul>
+            </div>
+            
+            <div class="workflow-card">
+                <h3>02 · Sync Notion & Repos</h3>
+                <ul class="workflow-steps">
+                    <li>🔗 Connect your docs and code</li>
+                    <li>📊 Index everything instantly</li>
+                    <li>🔍 Search across all platforms</li>
+                    <li>✨ Smart context awareness</li>
+                </ul>
+            </div>
+            
+            <div class="workflow-card">
+                <h3>03 · Automate Chaos</h3>
+                <ul class="workflow-steps">
+                    <li>🤖 Deploy AI agents</li>
+                    <li>🔄 Auto-updates everywhere</li>
+                    <li>⚙️ Custom workflows</li>
+                    <li>📈 Scale effortlessly</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mobile Showcase -->
+    <section class="mobile-showcase fade-in">
+        <div class="section-header">
+            <div class="section-badge">Mobile</div>
+            <h2>Your workspace, everywhere</h2>
+            <p>Full power on any device, any time.</p>
+        </div>
+        
+        <div class="mobile-features">
+            <div class="mobile-feature">
+                <div class="mobile-icon">📱</div>
+                <h3>Mobile First</h3>
+                <p>Native apps for iOS and Android with offline support.</p>
+            </div>
+            
+            <div class="mobile-feature">
+                <div class="mobile-icon">🔔</div>
+                <h3>Smart Alerts</h3>
+                <p>Get notified about what matters, when it matters.</p>
+            </div>
+            
+            <div class="mobile-feature">
+                <div class="mobile-icon">⚡</div>
+                <h3>Quick Actions</h3>
+                <p>One-tap macros to get things done instantly.</p>
+            </div>
+            
+            <div class="mobile-feature">
+                <div class="mobile-icon">🔒</div>
+                <h3>Secure Sync</h3>
+                <p>End-to-end encryption keeps your data safe.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section class="pricing fade-in" id="pricing">
+        <div class="section-header">
+            <div class="section-badge">Pricing</div>
+            <h2>Pricing That Doesn't Suck</h2>
+            <p>Start free. Upgrade when your team needs it.</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Personal</h3>
+                <div class="price">$0<span class="price-period">/month</span></div>
+                <p>For solo creators keeping things organized.</p>
+                <ul class="pricing-features">
+                    <li>✓ Up to 3 team members</li>
+                    <li>✓ 5 code repo imports</li>
+                    <li>✓ Basic Notion sync</li>
+                    <li>✓ Community support</li>
+                    <li>✓ Public roadmap</li>
+                </ul>
+                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Subscribe</a>
+            </div>
+            
+            <div class="pricing-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <h3>Team</h3>
+                <div class="price">$49<span class="price-period">/month</span></div>
+                <p>The perfect command center for your squad.</p>
+                <ul class="pricing-features">
+                    <li>✓ Up to 20 team members</li>
+                    <li>✓ 50 code repo imports</li>
+                    <li>✓ Full Notion Docs sync</li>
+                    <li>✓ Advanced task boards</li>
+                    <li>✓ Slack & Discord connect</li>
+                </ul>
+                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Subscribe</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">$499<span class="price-period">/month</span></div>
+                <p>Maximum power for world-class organizations.</p>
+                <ul class="pricing-features">
+                    <li>✓ Unlimited everything</li>
+                    <li>✓ Dedicated workspace mgr</li>
+                    <li>✓ Custom Notion connector</li>
+                    <li>✓ SSO / SAML / SCIM</li>
+                    <li>✓ White-glove onboarding</li>
+                    <li>✓ SLA & Legal support</li>
+                </ul>
+                <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 2rem;">Subscribe</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="cta-content">
+            <h2>Set it up once. Never think about it again.</h2>
+            <p>Your teams built something worth protecting. So did you.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">Get Started Free</a>
+                <a href="#" class="btn-secondary">Join Discord</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-icon" style="width: 28px; height: 28px; font-size: 1.1rem;">⚡</div>
+                <span>SnapFlow</span>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">Discord</a></li>
+                <li><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            © 2026 SnapFlow. All rights reserved.
+        </div>
+    </footer>
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
