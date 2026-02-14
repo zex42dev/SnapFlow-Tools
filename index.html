@@ -4,67 +4,47 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SnapFlow / SnapTV</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins&display=swap" rel="stylesheet" />
 <!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body {
-    margin: 0;
-    background: black;
-    overflow-x: hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
-
-  /* Space background with animated dots */
-  .stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: transparent;
+  /* Smooth fade-in animations for sections */
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
-
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle 2s infinite alternate;
-  }
-
-  @keyframes twinkle {
-    from { opacity: 0.3; }
-    to { opacity: 1; }
+  .fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
   }
 </style>
 </head>
-<body class="scroll-smooth">
+<body class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white font-sans">
 
-<!-- Space Dots Background -->
-<div class="stars" id="stars"></div>
-
-<!-- Content -->
-<header class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center text-white bg-gradient-to-b from-black via-gray-900 to-black bg-opacity-50">
-  <h1 class="text-5xl md:text-7xl font-bold mb-4 animate-bounce">🚀 SnapFlow / SnapTV — Your Vision</h1>
-  <p class="text-xl md:text-2xl mb-8 animate-pulse">The Ultimate Streaming + Productivity Hub</p>
-  <a href="#compare" class="mt-4 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">See Comparison</a>
+<!-- Header -->
+<header class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 bg-opacity-80 text-center">
+  <h1 class="text-5xl md:text-7xl font-semibold mb-4 animate-fade-in-up" style="animation-delay: 0.2s;">🚀 SnapFlow / SnapTV — Your Vision</h1>
+  <p class="text-xl md:text-2xl mb-8 animate-fade-in-up" style="animation-delay: 0.4s;">The Ultimate Streaming + Productivity Hub</p>
+  <a href="#compare" class="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">Explore Features</a>
 </header>
 
 <!-- Comparison Section -->
-<section id="compare" class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white px-4 py-20 flex flex-col md:flex-row items-center justify-around space-y-10 md:space-y-0 md:space-x-10">
-  <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full animate-bounce">
+<section id="compare" class="min-h-screen px-4 py-20 flex flex-col md:flex-row items-center justify-around bg-gradient-to-br from-gray-800 via-gray-700 to-gray-800">
+  <div class="max-w-md p-8 bg-white bg-opacity-5 rounded-lg shadow-lg backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.2s;">
     <h2 class="text-3xl font-semibold mb-4 text-center">Old Way</h2>
-    <ul class="list-disc list-inside space-y-2">
+    <ul class="list-disc list-inside space-y-2 text-gray-300">
       <li>Multiple Apps</li>
       <li>Manual setup</li>
       <li>Time-consuming</li>
       <li>Fragmented workflows</li>
     </ul>
   </div>
-  <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full animate-bounce">
+  <div class="max-w-md p-8 bg-white bg-opacity-5 rounded-lg shadow-lg backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.4s;">
     <h2 class="text-3xl font-semibold mb-4 text-center">The New Way</h2>
-    <ul class="list-disc list-inside space-y-2">
+    <ul class="list-disc list-inside space-y-2 text-gray-300">
       <li>One Dashboard</li>
       <li>One Button</li>
       <li>Instant Sharing & Streaming</li>
@@ -74,66 +54,55 @@
 </section>
 
 <!-- Features Section -->
-<section class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black px-4 py-20 text-white">
-  <h2 class="text-4xl font-bold mb-8 text-center">Core Features</h2>
-  <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
-      <h3 class="text-2xl mb-4">⚡ Macros Hub</h3>
-      <p>Automate complex workflows with a single click.</p>
+<section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-20 px-4">
+  <h2 class="text-4xl md:text-5xl font-semibold mb-12 text-center animate-fade-in-up" style="animation-delay: 0.2s;">Core Features</h2>
+  <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+    <div class="p-6 bg-white bg-opacity-5 rounded-lg shadow-lg backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.3s;">
+      <h3 class="text-2xl mb-4 font-semibold">⚡ Macros Hub</h3>
+      <p>Automate complex workflows with a single click, saving time and effort.</p>
     </div>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
-      <h3 class="text-2xl mb-4">🔗 Integrations</h3>
-      <p>Connect Twitch, YouTube, TikTok, GitHub, Discord, and more.</p>
+    <div class="p-6 bg-white bg-opacity-5 rounded-lg shadow-lg backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.4s;">
+      <h3 class="text-2xl mb-4 font-semibold">🔗 Integrations</h3>
+      <p>Seamlessly connect Twitch, YouTube, TikTok, Discord, GitHub, and more.</p>
     </div>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
-      <h3 class="text-2xl mb-4">🎥 4K Recording & Uploads</h3>
-      <p>Capture high-quality clips and share instantly.</p>
+    <div class="p-6 bg-white bg-opacity-5 rounded-lg shadow-lg backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.5s;">
+      <h3 class="text-2xl mb-4 font-semibold">🎥 4K Recording & Uploads</h3>
+      <p>Capture high-quality clips and share them instantly with your community.</p>
     </div>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
-      <h3 class="text-2xl mb-4">🤖 AI Add-ons</h3>
-      <p>Generate trendy hashtags, viral titles, and highlight reels.</p>
+    <div class="p-6 bg-white bg-opacity-5 rounded-lg shadow-lg backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.6s;">
+      <h3 class="text-2xl mb-4 font-semibold">🤖 AI Add-ons</h3>
+      <p>Generate trending hashtags, viral titles, and highlight reels automatically.</p>
     </div>
   </div>
 </section>
 
 <!-- Contact Section -->
-<section class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black px-4 py-20 text-white" id="contact">
-  <h2 class="text-4xl font-bold mb-8 text-center">Contact Us</h2>
-  <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-12 max-w-3xl mx-auto text-center">
+<section class="py-20 px-4 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" id="contact">
+  <h2 class="text-4xl md:text-5xl font-semibold mb-12 text-center animate-fade-in-up" style="animation-delay: 0.2s;">Get in Touch</h2>
+  <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-12 max-w-3xl mx-auto">
     <!-- Discord -->
-    <a href="https://discord.gg/kmGHtfYGUm" target="_blank" class="flex items-center space-x-4 hover:scale-110 transition">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/discord.png" alt="Discord" class="w-8 h-8"/>
+    <a href="https://discord.gg/kmGHtfYGUm" target="_blank" class="flex items-center space-x-4 hover:scale-105 transition" style="animation-delay: 0.3s;">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/discord.png" class="w-8 h-8" alt="Discord" />
       <span class="font-semibold">Discord</span>
     </a>
     <!-- GitHub -->
-    <a href="https://www.github.com/zex42dev" target="_blank" class="flex items-center space-x-4 hover:scale-110 transition">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" alt="GitHub" class="w-8 h-8"/>
+    <a href="https://www.github.com/zex42dev" target="_blank" class="flex items-center space-x-4 hover:scale-105 transition" style="animation-delay: 0.4s;">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" class="w-8 h-8" alt="GitHub" />
       <span class="font-semibold">GitHub</span>
     </a>
     <!-- Email -->
-    <a href="mailto:folyxz@gmail.com" class="flex items-center space-x-4 hover:scale-110 transition">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email" class="w-8 h-8"/>
+    <a href="mailto:folyxz@gmail.com" class="flex items-center space-x-4 hover:scale-105 transition" style="animation-delay: 0.5s;">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" class="w-8 h-8" alt="Email" />
       <span class="font-semibold">Email</span>
     </a>
   </div>
 </section>
 
-<!-- Generate stars -->
 <script>
-  const starCount = 200; // more stars for crazy effect
-  const starsContainer = document.getElementById('stars');
-
-  for (let i = 0; i < starCount; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    const size = Math.random() * 2 + 0.5; // size between 0.5 - 2.5px
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
-    starsContainer.appendChild(star);
-  }
+  // Animate sections
+  document.querySelectorAll('.fade-in-up').forEach((el, index) => {
+    el.style.animationDelay = `${0.2 + index * 0.2}s`;
+  });
 </script>
 
 </body>
