@@ -4,24 +4,25 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SnapFlow / SnapTV</title>
-<!-- Tailwind CSS CDN (for easy styling) -->
+<!-- Tailwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  /* Space background with animated dots */
   body {
     margin: 0;
     background: black;
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: 'Arial', sans-serif;
   }
 
-  /* Create animated dots (stars) */
+  /* Space background with animated dots */
   .stars {
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
     background: transparent;
-    overflow: hidden;
   }
 
   .star {
@@ -36,45 +37,101 @@
     from { opacity: 0.3; }
     to { opacity: 1; }
   }
-
-  /* Animate multiple dots randomly */
 </style>
 </head>
-<body>
+<body class="scroll-smooth">
 
+<!-- Space Dots Background -->
 <div class="stars" id="stars"></div>
 
 <!-- Content -->
-<div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center text-white">
+<header class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center text-white bg-gradient-to-b from-black via-gray-900 to-black bg-opacity-50">
   <h1 class="text-5xl md:text-7xl font-bold mb-4 animate-bounce">🚀 SnapFlow / SnapTV — Your Vision</h1>
   <p class="text-xl md:text-2xl mb-8 animate-pulse">The Ultimate Streaming + Productivity Hub</p>
-  <div class="max-w-2xl space-y-4 animate-bounce">
-    <h2 class="text-3xl font-semibold mb-2">🧩 What It Is</h2>
-    <p>SnapFlow (or SnapTV) is your all‑in‑one platform where:</p>
-    <ul class="list-disc list-inside text-left ml-4 space-y-2">
-      <li>Workflows (macros, automations, integrations)</li>
-      <li>Streaming (Twitch, YouTube, TikTok, OBS)</li>
-      <li>Sharing (clips, hashtags, uploads)</li>
+  <a href="#compare" class="mt-4 bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">See Comparison</a>
+</header>
+
+<!-- Comparison Section -->
+<section id="compare" class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white px-4 py-20 flex flex-col md:flex-row items-center justify-around space-y-10 md:space-y-0 md:space-x-10">
+  <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full animate-bounce">
+    <h2 class="text-3xl font-semibold mb-4 text-center">Old Way</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <li>Multiple Apps</li>
+      <li>Manual setup</li>
+      <li>Time-consuming</li>
+      <li>Fragmented workflows</li>
     </ul>
   </div>
-  <!-- More animated sections can be added similarly -->
-</div>
+  <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full animate-bounce">
+    <h2 class="text-3xl font-semibold mb-4 text-center">The New Way</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <li>One Dashboard</li>
+      <li>One Button</li>
+      <li>Instant Sharing & Streaming</li>
+      <li>Automated Workflows</li>
+    </ul>
+  </div>
+</section>
 
+<!-- Features Section -->
+<section class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black px-4 py-20 text-white">
+  <h2 class="text-4xl font-bold mb-8 text-center">Core Features</h2>
+  <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
+      <h3 class="text-2xl mb-4">⚡ Macros Hub</h3>
+      <p>Automate complex workflows with a single click.</p>
+    </div>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
+      <h3 class="text-2xl mb-4">🔗 Integrations</h3>
+      <p>Connect Twitch, YouTube, TikTok, GitHub, Discord, and more.</p>
+    </div>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
+      <h3 class="text-2xl mb-4">🎥 4K Recording & Uploads</h3>
+      <p>Capture high-quality clips and share instantly.</p>
+    </div>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg animate-bounce">
+      <h3 class="text-2xl mb-4">🤖 AI Add-ons</h3>
+      <p>Generate trendy hashtags, viral titles, and highlight reels.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black px-4 py-20 text-white" id="contact">
+  <h2 class="text-4xl font-bold mb-8 text-center">Contact Us</h2>
+  <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-12 max-w-3xl mx-auto text-center">
+    <!-- Discord -->
+    <a href="https://discord.gg/kmGHtfYGUm" target="_blank" class="flex items-center space-x-4 hover:scale-110 transition">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/discord.png" alt="Discord" class="w-8 h-8"/>
+      <span class="font-semibold">Discord</span>
+    </a>
+    <!-- GitHub -->
+    <a href="https://www.github.com/zex42dev" target="_blank" class="flex items-center space-x-4 hover:scale-110 transition">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" alt="GitHub" class="w-8 h-8"/>
+      <span class="font-semibold">GitHub</span>
+    </a>
+    <!-- Email -->
+    <a href="mailto:folyxz@gmail.com" class="flex items-center space-x-4 hover:scale-110 transition">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email" class="w-8 h-8"/>
+      <span class="font-semibold">Email</span>
+    </a>
+  </div>
+</section>
+
+<!-- Generate stars -->
 <script>
-  // Generate animated space dots
-  const starCount = 150; // Number of stars
+  const starCount = 200; // more stars for crazy effect
   const starsContainer = document.getElementById('stars');
 
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement('div');
     star.className = 'star';
-    const size = Math.random() * 2 + 1; // size between 1-3px
+    const size = Math.random() * 2 + 0.5; // size between 0.5 - 2.5px
     star.style.width = `${size}px`;
     star.style.height = `${size}px`;
     star.style.top = `${Math.random() * 100}%`;
     star.style.left = `${Math.random() * 100}%`;
-    star.style.animationDuration = `${1 + Math.random() * 2}s`;
-    star.style.transform = `translateZ(0)`;
+    star.style.animationDuration = `${0.5 + Math.random() * 1.5}s`;
     starsContainer.appendChild(star);
   }
 </script>
